@@ -1,8 +1,9 @@
 import React from 'react';
 import { Cell } from "@/game/components/cell";
+import { CellsMatrix } from "@/game/interfaces";
 
 interface Props {
-    cells: boolean[][];
+    cells: CellsMatrix;
 }
 
 export const CellTable: React.FC<Props> = ({ cells }) => (

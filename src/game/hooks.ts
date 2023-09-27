@@ -8,7 +8,11 @@ export const useWorkerGameUpdates = () => {
         const webWorker = new Worker('web-worker.js');
         webWorker.postMessage(newGameState);
         webWorker.onmessage = function (e) {
-            drawCellsOnCanvas(e.data.cells, (document.getElementById(CANVAS_ID) as HTMLCanvasElement).getContext('2d') as CanvasRenderingContext2D);
+            drawCellsOnCanvas(
+                e.data.cells,
+                (document.getElementById(CANVAS_ID) as HTMLCanvasElement).getContext('2d') as CanvasRenderingContext2D,
+                newGameState.boardSize
+            );
             setTimeout(() => {
                 webWorker.postMessage(e.data);
             }, TICK_DURATION);

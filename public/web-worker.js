@@ -31,8 +31,7 @@ const getAliveNeighboursByIndex = (index, cells, boardSize) => {
     return aliveNeighbours;
 }
 
-onmessage = function(e) {
-    const gameState = e.data;
+const getNextGameState = (gameState) => {
     const newGameState = { cells: [], boardSize: gameState.boardSize };
     gameState.cells.forEach((isAlive, index) => {
         const liveNeighbours = getAliveNeighboursByIndex(index, gameState.cells, gameState.boardSize);
@@ -44,5 +43,9 @@ onmessage = function(e) {
             newGameState.cells[index] = isAlive;
         }
     })
-    postMessage(newGameState);
+    return newGameState;
+}
+
+onmessage = function(e) {
+    postMessage(getNextGameState(e.data));
 }
