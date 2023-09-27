@@ -1,5 +1,5 @@
 import { Cells, GameState } from "@/game/interfaces";
-import { BOARD_SIZE } from "@/game/constants";
+import {BOARD_SIZE, CANVAS_SIZE, CELL_PADDING, CELL_SIZE} from "@/game/constants";
 
 export const generateRandomGameState = (boardSize: number): GameState => {
     const cells: boolean[] = [];
@@ -18,3 +18,21 @@ export const getCellsArrayFromCellsObject = (cells: Cells): boolean[][] =>
         acc[row][col] = cells[index];
         return acc;
     }, []);
+
+export const drawCellsOnCanvas = (cells: Cells, ctx: CanvasRenderingContext2D) => {
+    const cellsArray = getCellsArrayFromCellsObject(cells);
+    const cellSizeWithPadding = CELL_SIZE + CELL_PADDING;
+    ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+    cellsArray.forEach((row, rowIndex) => {
+        row.forEach((cell, cellIndex) => {
+            if (cell) {
+                ctx.fillRect(
+                    cellIndex * cellSizeWithPadding,
+                    rowIndex * cellSizeWithPadding,
+                    CELL_SIZE,
+                    CELL_SIZE
+                );
+            }
+        });
+    });
+}
