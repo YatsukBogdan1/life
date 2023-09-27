@@ -27,8 +27,8 @@ body {
 }
 
 .cell {
-  height: 20px;
-  width: 20px;
+  height: 2px;
+  width: 2px;
 }
 
 .cell.alive {
